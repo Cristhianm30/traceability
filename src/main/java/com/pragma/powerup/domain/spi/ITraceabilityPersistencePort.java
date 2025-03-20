@@ -10,4 +10,6 @@ public interface ITraceabilityPersistencePort {
 
     List<Traceability> getTraceabilityByClient(Long clientId);
 
+    List<Traceability> getLogsByOrderId(Long orderId);
+
 }

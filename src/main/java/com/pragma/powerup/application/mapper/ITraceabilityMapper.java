@@ -14,9 +14,9 @@ import java.util.List;
 public interface ITraceabilityMapper {
 
     Traceability requestToModel(TraceabilityRequestDto traceabilityRequestDto);
-    Traceability responseToModel(TraceabilityResponseDto traceabilityResponseDto);
-    TraceabilityRequestDto modelToRequest (Traceability traceability);
+
     TraceabilityResponseDto modelToResponse (Traceability traceability);
+
     List<TraceabilityResponseDto> toResponseDtoList(List<Traceability> traceabilityList);
 
 }

@@ -9,4 +9,6 @@ public interface ITraceabilityRepository extends MongoRepository<TraceabilityEnt
 
     List<TraceabilityEntity> findByClientId(Long clientId);
 
+    List<TraceabilityEntity> findByOrderId(Long orderId);
+
 }

@@ -1,5 +1,6 @@
 package com.pragma.powerup.infrastructure.exceptionhandler;
 
+import com.pragma.powerup.domain.exception.LogsNotFoundException;
 import com.pragma.powerup.infrastructure.exception.NoDataFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,13 @@ public class ControllerAdvisor {
             NoDataFoundException ignoredNoDataFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.NO_DATA_FOUND.getMessage()));
+    }
+
+    @ExceptionHandler(LogsNotFoundException.class)
+    public ResponseEntity<Map<String, String>> logsNotFoundException(
+            LogsNotFoundException logsNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.LOGS_NOT_FOUND.getMessage()));
     }
     
 }

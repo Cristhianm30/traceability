@@ -17,5 +17,12 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/trazabilidad
 
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+        web: DEBUG
+
 appDescription: "Pragma Powerup"
 appVersion: "1.0.0"

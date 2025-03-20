@@ -2,6 +2,7 @@ package com.pragma.powerup.infrastructure.input.rest;
 
 
 import com.pragma.powerup.application.dto.request.TraceabilityRequestDto;
+import com.pragma.powerup.application.dto.response.OrderEfficiencyDto;
 import com.pragma.powerup.application.dto.response.TraceabilityResponseDto;
 import com.pragma.powerup.application.handler.ITraceabilityHandler;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,14 @@ public class TraceabilityRestController {
     ){
         List<TraceabilityResponseDto> traceList = traceabilityHandler.getTraceabilityByClient(clientId);
         return ResponseEntity.status(HttpStatus.OK).body(traceList);
+    }
+
+    @PostMapping("/efficiency/orders")
+    public ResponseEntity<List<OrderEfficiencyDto>> getOrderEfficiency (
+            @RequestBody List<Long> orderId
+    ){
+        List<OrderEfficiencyDto> efficiencyList = traceabilityHandler.calculateOrdersEfficiency(orderId);
+        return ResponseEntity.status(HttpStatus.OK).body(efficiencyList);
     }
 
 }
