@@ -1,5 +1,6 @@
 package com.pragma.powerup.domain.api;
 
+import com.pragma.powerup.domain.model.EmployeeRanking;
 import com.pragma.powerup.domain.model.OrderEfficiency;
 import com.pragma.powerup.domain.model.Traceability;
 
@@ -12,4 +13,6 @@ public interface ITraceabilityServicePort {
     List<Traceability> getTraceabilityByClient(Long clientId);
 
     List<OrderEfficiency> calculateOrdersEfficiency (List<Long> orderIds);
-}
+
+    List<EmployeeRanking> calculateEmployeeRanking (List<Long> orderIds);
+ }

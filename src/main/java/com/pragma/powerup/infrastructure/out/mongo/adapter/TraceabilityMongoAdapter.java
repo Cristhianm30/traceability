@@ -38,8 +38,8 @@ public class TraceabilityMongoAdapter implements ITraceabilityPersistencePort {
 
     @Override
     public List<Traceability> getLogsByOrderId(Long orderId) {
-        List<TraceabilityEntity> entities = traceabilityRepository.findByOrderId(orderId);
-        return entities.stream()
+        List<TraceabilityEntity> entityList = traceabilityRepository.findByOrderId(orderId);
+        return entityList.stream()
                 .map(traceabilityEntityMapper::toModel)
                 .collect(Collectors.toList());
     }

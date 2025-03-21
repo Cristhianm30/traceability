@@ -4,6 +4,7 @@ package com.pragma.powerup.infrastructure.input.rest;
 import com.pragma.powerup.application.dto.request.TraceabilityRequestDto;
 import com.pragma.powerup.application.dto.response.OrderEfficiencyDto;
 import com.pragma.powerup.application.dto.response.TraceabilityResponseDto;
+import com.pragma.powerup.application.dto.response.EmployeeRankingDto;
 import com.pragma.powerup.application.handler.ITraceabilityHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,14 @@ public class TraceabilityRestController {
     ){
         List<OrderEfficiencyDto> efficiencyList = traceabilityHandler.calculateOrdersEfficiency(orderId);
         return ResponseEntity.status(HttpStatus.OK).body(efficiencyList);
+    }
+
+    @PostMapping("/ranking/employees")
+    public ResponseEntity<List<EmployeeRankingDto>> getEmployeeRanking (
+            @RequestBody List<Long> orderId
+    ){
+        List<EmployeeRankingDto> rankingList = traceabilityHandler.calculateEmployeeRanking(orderId);
+        return ResponseEntity.status(HttpStatus.OK).body(rankingList);
     }
 
 }

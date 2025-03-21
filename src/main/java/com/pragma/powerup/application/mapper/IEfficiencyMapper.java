@@ -12,6 +12,6 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IEfficiencyMapper {
 
-    OrderEfficiencyDto orderEfficiencyToDto(OrderEfficiency orderEfficiency);
-    List<OrderEfficiencyDto> toOrderEfficiencyDtoList(List<OrderEfficiency> orderEfficiencyList);
+    OrderEfficiencyDto toDto(OrderEfficiency orderEfficiency);
+    List<OrderEfficiencyDto> toDtoList(List<OrderEfficiency> orderEfficiencyList);
 }

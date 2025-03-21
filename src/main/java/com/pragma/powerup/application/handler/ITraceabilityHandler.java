@@ -1,6 +1,7 @@
 package com.pragma.powerup.application.handler;
 
 import com.pragma.powerup.application.dto.request.TraceabilityRequestDto;
+import com.pragma.powerup.application.dto.response.EmployeeRankingDto;
 import com.pragma.powerup.application.dto.response.OrderEfficiencyDto;
 import com.pragma.powerup.application.dto.response.TraceabilityResponseDto;
 
@@ -11,4 +12,5 @@ public interface ITraceabilityHandler {
     TraceabilityResponseDto saveTraceability (TraceabilityRequestDto traceabilityRequestDto);
     List<TraceabilityResponseDto> getTraceabilityByClient(Long clientId);
     List<OrderEfficiencyDto> calculateOrdersEfficiency (List<Long> orderId);
+    List<EmployeeRankingDto> calculateEmployeeRanking (List<Long> orderId);
 }
