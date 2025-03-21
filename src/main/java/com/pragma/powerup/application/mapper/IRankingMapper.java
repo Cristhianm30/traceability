@@ -12,7 +12,6 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IRankingMapper {
 
-    EmployeeRanking toModel(EmployeeRankingDto employeeRankingDto);
     EmployeeRankingDto toDto (EmployeeRanking employeeRanking);
     List<EmployeeRankingDto> toDtoList (List<EmployeeRanking> employeeRankings);
 
