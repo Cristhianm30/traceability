@@ -36,21 +36,21 @@ public class TraceabilityUseCase  implements ITraceabilityServicePort {
 
         List<OrderEfficiency> result = new ArrayList<>();
 
-        // Para cada orderId
+
         for (Long orderId : orderIds) {
-            // Obtén todos los logs para este orderId
+
             List<Traceability> logs = traceabilityPersistencePort.getLogsByOrderId(orderId);
 
             if (logs == null || logs.isEmpty()) {
-                continue; // Si no hay logs para ese orderId, se omite
+                continue;
             }
 
-            // Buscar el log de inicio: newStatus "PENDIENTE"
+
             Optional<Traceability> pendingLogOpt = logs.stream()
                     .filter(log -> "PENDIENTE".equalsIgnoreCase(log.getNewStatus()))
                     .min(Comparator.comparing(Traceability::getDate));
 
-            // Buscar el log final: newStatus "ENTREGADO" o "CANCELADO"
+
             Optional<Traceability> finalLogOpt = logs.stream()
                     .filter(log -> "ENTREGADO".equalsIgnoreCase(log.getNewStatus()) ||
                             "CANCELADO".equalsIgnoreCase(log.getNewStatus()))
@@ -63,7 +63,7 @@ public class TraceabilityUseCase  implements ITraceabilityServicePort {
                 long minutes = Duration.between(pendingLog.getDate(), finalLog.getDate()).toMinutes();
                 String finalStatus = finalLog.getNewStatus();
 
-                // Se crea el objeto OrderEfficiency y se agrega a la lista
+
                 result.add(new OrderEfficiency(orderId, minutes, finalStatus));
             }
 
@@ -76,22 +76,22 @@ public class TraceabilityUseCase  implements ITraceabilityServicePort {
 
     @Override
     public List<EmployeeRanking> calculateEmployeeRanking(List<Long> orderIds) {
-        // Mapa para agrupar tiempos de procesamiento por employeeId
+
         Map<Long, List<Long>> timesByEmployee = new HashMap<>();
 
         for (Long orderId : orderIds) {
-            // Obtener todos los logs asociados al orderId
+
             List<Traceability> logs = traceabilityPersistencePort.getLogsByOrderId(orderId);
             if (logs == null || logs.isEmpty()) {
                 continue;
             }
 
-            // Encontrar el log de inicio: el de menor fecha con newStatus "PENDIENTE"
+
             Optional<Traceability> pendingLogOpt = logs.stream()
                     .filter(log -> "PENDIENTE".equalsIgnoreCase(log.getNewStatus()))
                     .min(Comparator.comparing(Traceability::getDate));
 
-            // Encontrar el log final: el de mayor fecha con newStatus "ENTREGADO" o "CANCELADO"
+
             Optional<Traceability> finalLogOpt = logs.stream()
                     .filter(log -> "ENTREGADO".equalsIgnoreCase(log.getNewStatus())
                             || "CANCELADO".equalsIgnoreCase(log.getNewStatus()))
@@ -101,7 +101,7 @@ public class TraceabilityUseCase  implements ITraceabilityServicePort {
                 Traceability pendingLog = pendingLogOpt.get();
                 Traceability finalLog = finalLogOpt.get();
 
-                // Calcular el tiempo de procesamiento en minutos
+
                 long processingTime = Duration.between(pendingLog.getDate(), finalLog.getDate()).toMinutes();
                 Long employeeId = finalLog.getEmployeeId();
 
@@ -113,7 +113,7 @@ public class TraceabilityUseCase  implements ITraceabilityServicePort {
             }
         }
 
-        // Crear la lista de ranking, calculando el promedio para cada empleado
+
         List<EmployeeRanking> rankingList = new ArrayList<>();
         for (Map.Entry<Long, List<Long>> entry : timesByEmployee.entrySet()) {
             Long employeeId = entry.getKey();
@@ -123,7 +123,7 @@ public class TraceabilityUseCase  implements ITraceabilityServicePort {
             rankingList.add(ranking);
         }
 
-        // Ordenar la lista de ranking de menor a mayor promedio
+
         rankingList.sort(Comparator.comparingDouble(EmployeeRanking::getAverageProcessingTimeInMinutes));
 
         return rankingList;
